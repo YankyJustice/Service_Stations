@@ -1,10 +1,10 @@
-import Autopark from './pages/Autopark'
-import ServiceStations from './pages/ServiceStations'
+import ParkOfCars from '../pages/ParkOfCars'
+import ServiceStations from '../pages/ServiceStations'
 
 export const PublicRoutes = [
   {
     path: '/autopark',
-    component: <Autopark />,
+    component: <ParkOfCars />,
     exact: true,
   },
   {

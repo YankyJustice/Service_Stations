@@ -42,10 +42,52 @@
     "JSX": true
   },
   "plugins": [
+    "import",
     "react",
     "@typescript-eslint"
   ],
   "rules": {
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "**react**",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "**/components/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "**/constants/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "**/redux/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "**/styles",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["**react**"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/no-unresolved": "off",
+    "react/prop-types":"off",
     "no-unused-expressions": "off",
     "no-return-assign": "off",
     "no-plusplus": "off",
