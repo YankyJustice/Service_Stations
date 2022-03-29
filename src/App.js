@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom'
 
+import { PublicRoutes } from 'src/constants/routes'
+
 import Header from 'src/components/Header'
 import LeftSideBar from 'src/components/LeftSideBar'
-
-import { PublicRoutes } from 'src/constants/routes'
 
 const App = () => {
   const qwe = 12

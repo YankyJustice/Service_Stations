@@ -10,8 +10,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid grey;
-  color: black;
+  border: 3px solid grey;
+  color: grey;
   .repairImg {
     margin-top: 25px;
     width: 100px;
@@ -19,8 +19,9 @@
   }
 }
 .cardWrapper:hover {
-  color:grey;
+  color:black;
   transition: 0.3s;
+  border: 3px solid black;
 }
 
 .link:not(:first-child) {
