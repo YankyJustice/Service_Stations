@@ -1,4 +1,10 @@
+import { useState } from 'react'
+
+import AddNewCard from 'src/components/AddNewCard'
 import Card from 'src/components/Card'
+import CustomModal from 'src/components/Modal'
+
+import repair from 'src/assets/png/repair.png'
 
 import styles from './styles.module.scss'
 
@@ -9,12 +15,20 @@ const stations = [
 ]
 
 const ServiceStations = () => {
-  const qwe = ''
+  const [modalState, setModalState] = useState(false)
   return (
     <div className={styles.wrapper}>
       {stations.map((station) => (
-        <Card name={station.name} />
+        <Card name={station.name} image={repair} />
       ))}
+      <AddNewCard handleClick={() => setModalState(true)} />
+      <CustomModal
+        title='Add service station'
+        isOpen={modalState}
+        handleClose={() => setModalState(false)}
+      >
+        <div>qwe</div>
+      </CustomModal>
     </div>
   )
 }

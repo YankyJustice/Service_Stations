@@ -1,12 +1,12 @@
-import repair from 'src/assets/png/repair.png'
+import { AddCard } from 'src/assets/svg'
 
 import styles from './styles.module.scss'
 
-const AddNewCard = () => {
+const AddNewCard = ({ handleClick }) => {
   const qwe = ''
   return (
-    <div className={styles.cardWrapper}>
-      <img src={repair} className={styles.repairImg} alt='repair' />
+    <div className={styles.cardWrapper} onClick={() => handleClick()}>
+      <AddCard />
     </div>
   )
 }
