@@ -1,25 +1,26 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+
+import { getServiceStations } from 'src/redux/serviceStations/selectors'
 
 import AddNewCard from 'src/components/AddNewCard'
 import Card from 'src/components/Card'
 import CustomModal from 'src/components/Modal'
+import BasicSelect from 'src/components/Select'
 
 import repair from 'src/assets/png/repair.png'
 
 import styles from './styles.module.scss'
 
-const stations = [
-  { name: 'tiny airlanes', id: 1, AcceptableCard: ['Huyndai', 'BMW'] },
-  { name: 'tiny airlanes', id: 1, AcceptableCard: ['Huyndai', 'BMW'] },
-  { name: 'tiny airlanes', id: 1, AcceptableCard: ['Huyndai', 'BMW'] },
-]
-
 const ServiceStations = () => {
   const [modalState, setModalState] = useState(false)
+  const stations = useSelector(getServiceStations)
+  const [autos, setAutos] = useState(['Huyndai', 'Mercedes', 'Mazda'])
+
   return (
     <div className={styles.wrapper}>
       {stations.map((station) => (
-        <Card name={station.name} image={repair} />
+        <Card name={station.name} image={repair} key={station.id} />
       ))}
       <AddNewCard handleClick={() => setModalState(true)} />
       <CustomModal
@@ -27,7 +28,7 @@ const ServiceStations = () => {
         isOpen={modalState}
         handleClose={() => setModalState(false)}
       >
-        <div>qwe</div>
+        <form />
       </CustomModal>
     </div>
   )
