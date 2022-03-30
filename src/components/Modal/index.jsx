@@ -1,3 +1,4 @@
+import { Button } from '@mui/material'
 import Backdrop from '@mui/material/Backdrop'
 import Box from '@mui/material/Box'
 import Fade from '@mui/material/Fade'
@@ -39,6 +40,9 @@ const CustomModal = ({ title, children, isOpen, handleClose }) => (
           <Typography id='transition-modal-description' sx={{ mt: 2 }}>
             {children}
           </Typography>
+          <Button variant='contained' color='success' sx={{ marginTop: 2 }}>
+            Add station
+          </Button>
         </Box>
       </Fade>
     </Modal>

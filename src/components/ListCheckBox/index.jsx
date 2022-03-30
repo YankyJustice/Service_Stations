@@ -1,0 +1,59 @@
+import { useState } from 'react'
+
+import Button from '@mui/material/Button'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+
+import styles from './styles.module.scss'
+
+const ListCheckBox = ({ lists, title, details, handleChange }) => {
+  const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  return (
+    <div className={styles.listsContainer}>
+      <Button
+        id='basic-button'
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup='true'
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        {title}
+      </Button>
+      <Menu
+        id='basic-menu'
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        {lists.map((el) => (
+          <MenuItem>
+            <input
+              className={styles.counter}
+              type='number'
+              placeholder={el}
+              min={0}
+              value={details.find((detail) => detail.name === el)?.count}
+              name={el}
+              onChange={(e) =>
+                handleChange(e.currentTarget.value, e.currentTarget.name)
+              }
+            />
+          </MenuItem>
+        ))}
+      </Menu>
+    </div>
+  )
+}
+
+export default ListCheckBox
