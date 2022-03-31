@@ -1,3 +1,4 @@
+import AutoInfo from 'src/pages/AutoInfo'
 import Station from 'src/pages/Station'
 
 import ParkOfCars from '../pages/ParkOfCars'
@@ -17,6 +18,11 @@ export const PublicRoutes = [
   {
     path: '/service-stations/:stationId',
     component: <Station />,
+    exact: true,
+  },
+  {
+    path: '/autopark/:autoId',
+    component: <AutoInfo />,
     exact: true,
   },
 ]

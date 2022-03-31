@@ -76,12 +76,13 @@ const ServiceStations = () => {
         isOpen={modalState}
         handleClose={() => setModalState(false)}
         submitModal={handleAddService}
+        buttonTitle='Add service'
       >
         <div className={styles.form}>
           <TextField
             id='outlined'
-            label='Enter name station'
-            defaultValue={stationName}
+            label='Enter the state number'
+            value={stationName}
             onChange={(e) => setStationName(e.currentTarget.value)}
             sx={{ marginBottom: 2, marginTop: 2 }}
           />

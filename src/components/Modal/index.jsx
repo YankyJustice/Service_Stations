@@ -19,7 +19,14 @@ const style = {
   p: 4,
 }
 
-const CustomModal = ({ title, children, isOpen, handleClose, submitModal }) => (
+const CustomModal = ({
+  title,
+  children,
+  isOpen,
+  handleClose,
+  submitModal,
+  buttonTitle,
+}) => (
   <div>
     <Modal
       aria-labelledby='transition-modal-title'
@@ -44,7 +51,7 @@ const CustomModal = ({ title, children, isOpen, handleClose, submitModal }) => (
             color='success'
             sx={{ marginTop: 2 }}
           >
-            Add station
+            {buttonTitle}
           </Button>
         </Box>
       </Fade>

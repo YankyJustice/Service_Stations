@@ -6,7 +6,10 @@ const initialState = {
       name: 'tiny airlanes',
       id: 'qwDSADewq',
       acceptableAutos: [
-        { name: 'Huyndai', details: [{ name: 'battery', count: 20 }] },
+        {
+          name: 'Huyndai',
+          details: [{ name: 'battery', count: 20 }],
+        },
       ],
     },
     {
@@ -37,9 +40,13 @@ export const serviceStationsSlice = createSlice({
     setCurrentStation: (state, action) => {
       state.currentStation = action.payload
     },
+    setStations: (state, action) => {
+      state.stations = action.payload
+    },
   },
 })
 
-export const { addStation, setCurrentStation } = serviceStationsSlice.actions
+export const { addStation, setCurrentStation, setStations } =
+  serviceStationsSlice.actions
 
 export default serviceStationsSlice.reducer
