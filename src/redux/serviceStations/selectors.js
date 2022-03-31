@@ -7,4 +7,7 @@ export const getServiceStations = createSelector(
   (state) => state.stations,
 )
 
-export const getValue = createSelector(selectState, (state) => state)
+export const getCurrentStation = createSelector(
+  selectState,
+  (state) => state.currentStation,
+)

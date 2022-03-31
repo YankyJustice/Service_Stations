@@ -38,12 +38,13 @@ const ListCheckBox = ({ lists, title, details, handleChange }) => {
       >
         {lists.map((el) => (
           <MenuItem>
+            {el}
             <input
               className={styles.counter}
               type='number'
               placeholder={el}
               min={0}
-              value={details.find((detail) => detail.name === el)?.count}
+              value={details.find((detail) => detail.name === el)?.count || 0}
               name={el}
               onChange={(e) =>
                 handleChange(e.currentTarget.value, e.currentTarget.name)

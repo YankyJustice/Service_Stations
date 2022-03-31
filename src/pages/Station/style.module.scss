@@ -1,0 +1,74 @@
+.stationContainer {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  gap: 10px;
+  width: 100%;
+  margin-left: 20px;
+  .stationInfoContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:10px;
+    .stationInfo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .logo {
+        width: 100px;
+        height: 100px;
+      }
+      .nameStation {
+        font-size: 25px;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+    }
+    .detailsInfo {
+      overflow-y: hidden;
+      padding: 20px;
+      border: 2px solid grey;
+      border-radius: 20px;
+      .detailsScroll {
+        overflow-y: scroll;
+        height: 100%;
+        margin-bottom: 100px;
+      }
+      .detailsInfoHeader {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding-bottom: 10px;
+        border-bottom: 2px solid grey;
+      }
+      .autoName {
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .detailInfo {
+        margin-top: 10px;
+        margin-left: 30px;
+        .detailName {
+          margin-right: 10px;
+          font-size: 18px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .autosInfoContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:10px;
+    .autosWaiting {
+      border: 2px solid grey;
+      border-radius: 20px;
+    }
+    .autoOnStantion {
+      border: 2px solid grey;
+      border-radius: 20px;
+    }
+  }
+}
+

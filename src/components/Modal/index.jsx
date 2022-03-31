@@ -19,7 +19,7 @@ const style = {
   p: 4,
 }
 
-const CustomModal = ({ title, children, isOpen, handleClose }) => (
+const CustomModal = ({ title, children, isOpen, handleClose, submitModal }) => (
   <div>
     <Modal
       aria-labelledby='transition-modal-title'
@@ -37,10 +37,13 @@ const CustomModal = ({ title, children, isOpen, handleClose }) => (
           <Typography id='transition-modal-title' variant='h6' component='h2'>
             <div className={styles.header}>{title}</div>
           </Typography>
-          <Typography id='transition-modal-description' sx={{ mt: 2 }}>
-            {children}
-          </Typography>
-          <Button variant='contained' color='success' sx={{ marginTop: 2 }}>
+          {children}
+          <Button
+            onClick={submitModal}
+            variant='contained'
+            color='success'
+            sx={{ marginTop: 2 }}
+          >
             Add station
           </Button>
         </Box>

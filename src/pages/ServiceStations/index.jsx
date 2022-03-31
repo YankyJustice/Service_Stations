@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { TextField } from '@mui/material'
 
+import { getRandomString } from 'src/constants/functions'
 import { autos, details } from 'src/constants/mock'
 
 import { getServiceStations } from 'src/redux/serviceStations/selectors'
+import { addStationsThunk } from 'src/redux/serviceStations/thunks'
 
 import AddNewCard from 'src/components/AddNewCard'
 import Card from 'src/components/Card'
@@ -22,6 +24,7 @@ const ServiceStations = () => {
   const stations = useSelector(getServiceStations)
   const [acceptableAutos, setAcceptableAutos] = useState([])
   const [stationName, setStationName] = useState('')
+  const dispatch = useDispatch()
 
   const handleCheckAuto = (value) => {
     const match = acceptableAutos.find((auto) => auto.name === value)
@@ -47,16 +50,32 @@ const ServiceStations = () => {
     )
   }
 
+  const handleAddService = () => {
+    dispatch(
+      addStationsThunk(
+        { name: stationName, acceptableAutos, id: getRandomString() },
+        setModalState,
+        setAcceptableAutos,
+        setStationName,
+      ),
+    )
+  }
   return (
     <div className={styles.wrapper}>
       {stations.map((station) => (
-        <Card name={station.name} image={repair} key={station.id} />
+        <Card
+          name={station.name}
+          image={repair}
+          key={station.id}
+          id={station.id}
+        />
       ))}
       <AddNewCard handleClick={() => setModalState(true)} />
       <CustomModal
         title='Add service station'
         isOpen={modalState}
         handleClose={() => setModalState(false)}
+        submitModal={handleAddService}
       >
         <div className={styles.form}>
           <TextField
@@ -66,7 +85,7 @@ const ServiceStations = () => {
             onChange={(e) => setStationName(e.currentTarget.value)}
             sx={{ marginBottom: 2, marginTop: 2 }}
           />
-          <div className={styles.checkBoxes}>
+          <div>
             {autos.map((auto) => (
               <div className={styles.checkBoxWrapper}>
                 <div className={styles.checkBox}>
