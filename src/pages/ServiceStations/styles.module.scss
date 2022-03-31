@@ -3,3 +3,24 @@
   flex-direction: row;
   padding: 0 50px 50px 50px;
 }
+.checkBoxWrapper {
+  display: grid;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  align-items: center;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  .checkBox {
+    transition: 0.3s;
+    width: 220px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.form {
+  overflow: auto;
+  max-height: 400px;
+}

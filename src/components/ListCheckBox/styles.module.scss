@@ -1,0 +1,15 @@
+.listsContainer {
+  width: 300px;
+  animation: box 0.5s ease-in-out;
+}
+
+.counter {
+  border-radius: 2px;
+  border: none;
+  padding: 5px;
+}
+
+@keyframes box {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
