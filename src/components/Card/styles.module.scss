@@ -1,6 +1,8 @@
 .link {
   text-decoration: none;
   height: fit-content;
+  margin-left: 30px;
+  margin-top: 30px;
 }
 .cardWrapper {
   font-size: 25px;
@@ -23,8 +25,4 @@
   color:black;
   transition: 0.3s;
   border: 3px solid black;
-}
-
-.link:not(:first-child) {
-  margin-left: 30px;
 }

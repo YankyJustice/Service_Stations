@@ -9,7 +9,7 @@ import Select from '@mui/material/Select'
 const BasicSelect = ({ label, items, handleChange, initialValue }) => (
   <Box sx={{ minWidth: 120 }}>
     <FormControl fullWidth>
-      <InputLabel id='demo-simple-select-label'>Age</InputLabel>
+      <InputLabel id='demo-simple-select-label'>{label}</InputLabel>
       <Select
         labelId='select-label'
         id='select'
