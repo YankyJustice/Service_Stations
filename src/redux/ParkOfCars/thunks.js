@@ -1,83 +1,153 @@
-import {
-  addStation,
-  setCurrentStation,
-  setStations,
-} from 'src/redux/serviceStations/reducer'
+import { toast } from 'react-toastify'
 
-export const addStationsThunk =
-  (payload, setModalState, setAcceptableAutos, setStationName) =>
-  async (dispatch) => {
-    dispatch(addStation(payload))
-    setModalState(false)
-    setAcceptableAutos([])
-    setStationName('')
+import { autos, regExpGovernmentNumber } from 'src/constants/mock'
+
+import {
+  addCarToPark,
+  setAvailableCars,
+  setAvailableStations,
+  setCars,
+  setCurrentCar,
+} from 'src/redux/ParkOfCars/reducer'
+import { setStations } from 'src/redux/serviceStations/reducer'
+
+export const addCarToParkThunk =
+  (payload, setModalState, setAutoName, setGovernmentNumber) =>
+  async (dispatch, getState) => {
+    try {
+      const {
+        parkOfCars: { cars },
+      } = getState()
+      if (!regExpGovernmentNumber.test(payload.id)) {
+        throw String('Government number should be looks like А777АА131')
+      }
+      if (!payload.name) {
+        throw String('Please select the car')
+      }
+      if (cars.find((car) => car.id === payload.id)) {
+        throw String('Car with this government number already exist')
+      }
+      const { icon } = autos.find((auto) => auto.name === payload.name)
+      dispatch(addCarToPark({ ...payload, icon }))
+      console.log(icon)
+      setModalState(false)
+      setAutoName('')
+      setGovernmentNumber('')
+      toast.success('Car successfully added to park')
+    } catch (e) {
+      toast.error(e)
+    }
   }
 
-export const getCurrentStationThunk =
-  (stationId) => async (dispatch, getState) => {
+export const getAvailableCarsThunk =
+  (setModalState) => async (dispatch, getState) => {
     const {
       serviceStations: { stations },
     } = getState()
-    dispatch(
-      setCurrentStation(
-        stations.find((station) => String(station.id) === String(stationId)),
+    const allCarsOnStations = [
+      ...new Set(
+        stations
+          .map((station) => station.acceptableAutos)
+          .flat()
+          .map((auto) => auto.name),
       ),
-    )
+    ]
+    dispatch(setAvailableCars(allCarsOnStations))
+
+    setModalState(true)
   }
 
-export const orderDetailsThunk =
-  (details, setModalState, setDetailsForOrder, currentAuto) =>
-  async (dispatch, getState) => {
+export const getCurrentCarThunk = (autoId) => async (dispatch, getState) => {
+  const {
+    parkOfCars: { cars },
+  } = getState()
+  dispatch(setCurrentCar(cars.find((car) => car.id === autoId)))
+}
+
+export const getAvailableStationsThunk =
+  (nameOfCar, detailsForRepair) => async (dispatch, getState) => {
     const {
-      serviceStations: { currentStation, stations },
+      serviceStations: { stations },
     } = getState()
-    console.log(stations)
-    console.log(currentStation)
-    const detailsForOrder = []
-    const autoIndex = currentStation.acceptableAutos.findIndex(
-      (auto) => currentAuto === auto.name,
-    )
-    details.forEach((detailForOrder) => {
-      currentStation.acceptableAutos[autoIndex].details.forEach((detail) => {
-        if (detailForOrder.name === detail.name) {
-          detailsForOrder.push({
-            name: detailForOrder.name,
-            count: Number(detailForOrder.count) + Number(detail.count),
+
+    const availableDetails = []
+
+    stations.forEach((station) => {
+      station.acceptableAutos.forEach((auto) => {
+        auto.name === nameOfCar &&
+          detailsForRepair.forEach((detailForRepair) => {
+            auto.details.forEach((detail) => {
+              detail.name === detailForRepair &&
+                Number(detail.count) > 0 &&
+                availableDetails.push({
+                  stationName: station.name,
+                  [detailForRepair]: true,
+                })
+            })
           })
-        }
       })
-      const match = currentStation.acceptableAutos[autoIndex].details.find(
-        (findDetail) => findDetail.name === detailForOrder.name,
-      )
-      if (!match) {
-        detailsForOrder.push({
-          ...detailForOrder,
-          count: Number(detailForOrder.count),
-        })
-      }
     })
 
+    const availableStations = stations
+      .map((station) =>
+        availableDetails.filter(
+          (detail) => station.name === detail.stationName,
+        ),
+      )
+      .filter((station) => station.length === detailsForRepair.length)
+      .map((details) => details[0]?.stationName || undefined)
+
+    if (!availableStations.find((station) => station)) {
+      dispatch(setAvailableStations([]))
+    } else {
+      dispatch(setAvailableStations(availableStations))
+    }
+  }
+
+export const sendAutoToStationThunk =
+  (currentStation, currentCar, detailsForRepair, setModalState) =>
+  async (dispatch, getState) => {
+    const {
+      serviceStations: { stations },
+      parkOfCars,
+    } = getState()
     dispatch(
       setStations(
         stations.map((station) => {
-          if (station.id === currentStation.id) {
+          if (station.name === currentStation) {
             return {
               ...station,
-              acceptableAutos: station.acceptableAutos.map((auto) => {
-                if (auto.name === currentAuto) {
-                  return {
-                    ...auto,
-                    details: detailsForOrder,
-                  }
-                }
-                return auto
-              }),
+              repairRequests: [
+                ...station.repairRequests,
+                {
+                  carName: currentCar.name,
+                  carId: currentCar.id,
+                  carIcon: currentCar.icon,
+                  detailsForRepair,
+                  requestDate: Date.now(),
+                },
+              ],
             }
           }
           return station
         }),
       ),
     )
-    dispatch(getCurrentStationThunk(currentStation.id))
+
+    dispatch(
+      setCars(
+        parkOfCars.cars.map((car) => {
+          if (car.id === currentCar.id) {
+            return {
+              ...car,
+              status: 'sent',
+            }
+          }
+          return car
+        }),
+      ),
+    )
+    toast.success('The car has been sent for service')
+    dispatch(getCurrentCarThunk(currentCar.id))
     setModalState(false)
   }

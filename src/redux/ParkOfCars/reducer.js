@@ -1,12 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  cars: [
-    { name: 'Huyndai', class: 'Premium', id: 'X435TT161' },
-    { name: 'BMW', class: 'Business', id: 'X436TT161' },
-    { name: 'Mercedes', class: 'Eco', id: 'X437TT161' },
-  ],
-  currentStation: null,
+  cars: [],
+  availableCars: [],
+  currentCar: null,
 }
 
 export const parkOfCarsSlice = createSlice({
@@ -16,9 +13,27 @@ export const parkOfCarsSlice = createSlice({
     addCarToPark: (state, action) => {
       state.cars.push(action.payload)
     },
+    setAvailableCars: (state, action) => {
+      state.availableCars = action.payload
+    },
+    setCurrentCar: (state, action) => {
+      state.currentCar = action.payload
+    },
+    setAvailableStations: (state, action) => {
+      state.currentCar.availableStations = action.payload
+    },
+    setCars: (state, action) => {
+      state.cars = action.payload
+    },
   },
 })
 
-export const { addCarToPark } = parkOfCarsSlice.actions
+export const {
+  addCarToPark,
+  setAvailableCars,
+  setCurrentCar,
+  setAvailableStations,
+  setCars,
+} = parkOfCarsSlice.actions
 
 export default parkOfCarsSlice.reducer

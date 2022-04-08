@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { TextField } from '@mui/material'
+import { Checkbox, TextField } from '@mui/material'
 
 import { getRandomString } from 'src/constants/functions'
 import { autos, details } from 'src/constants/mock'
@@ -11,7 +11,6 @@ import { addStationsThunk } from 'src/redux/serviceStations/thunks'
 
 import AddNewCard from 'src/components/AddNewCard'
 import Card from 'src/components/Card'
-import Checkbox from 'src/components/Checkbox'
 import ListCheckBox from 'src/components/ListCheckBox'
 import CustomModal from 'src/components/Modal'
 
@@ -60,6 +59,7 @@ const ServiceStations = () => {
       ),
     )
   }
+
   return (
     <div className={styles.wrapper}>
       {stations.map((station) => (
@@ -81,29 +81,29 @@ const ServiceStations = () => {
         <div className={styles.form}>
           <TextField
             id='outlined'
-            label='Enter the state number'
+            label='Enter the name of station'
             value={stationName}
             onChange={(e) => setStationName(e.currentTarget.value)}
             sx={{ marginBottom: 2, marginTop: 2 }}
           />
           <div>
             {autos.map((auto) => (
-              <div className={styles.checkBoxWrapper}>
+              <div className={styles.checkBoxWrapper} key={auto.name}>
                 <div className={styles.checkBox}>
-                  <span>{auto}</span>
                   <Checkbox
-                    name={auto}
-                    handleChange={handleCheckAuto}
+                    name={auto.name}
+                    onChange={(e) => handleCheckAuto(e.target.name)}
                     checked={Boolean(
                       acceptableAutos.find(
-                        (acceptableAuto) => acceptableAuto.name === auto,
+                        (acceptableAuto) => acceptableAuto.name === auto.name,
                       ),
                     )}
                   />
+                  <span>{auto.name}</span>
                 </div>
                 {acceptableAutos.map(
                   (acceptableAuto) =>
-                    acceptableAuto.name === auto && (
+                    acceptableAuto.name === auto.name && (
                       <ListCheckBox
                         lists={details}
                         title='Details'

@@ -1,57 +1,74 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { TextField } from '@mui/material'
 
-import { autos } from 'src/constants/mock'
+import { getAvailableCars, getCars } from 'src/redux/ParkOfCars/selectors'
+import {
+  addCarToParkThunk,
+  getAvailableCarsThunk,
+} from 'src/redux/ParkOfCars/thunks'
 
 import AddNewCard from 'src/components/AddNewCard'
 import Card from 'src/components/Card'
 import CustomModal from 'src/components/Modal'
 import Select from 'src/components/Select'
 
-import businessCar from 'src/assets/png/bussinesCar.png'
-import ecoCar from 'src/assets/png/ecoCar.png'
-import premiumCar from 'src/assets/png/premiumCar.png'
-
 import styles from 'src/pages/ServiceStations/styles.module.scss'
-
-const autopark = [
-  { name: 'Huyndai', class: 'Premium', id: 1 },
-  { name: 'BMW', class: 'Business', id: 1 },
-  { name: 'Mercedes', class: 'Eco', id: 1 },
-]
 
 const ParkOfCars = () => {
   const [modalState, setModalState] = useState(false)
-  const [nameStation, setNameStation] = useState('')
+  const [governmentNumber, setGovernmentNumber] = useState('')
+  const [autoName, setAutoName] = useState('')
+  const autopark = useSelector(getCars)
+  const availableCars = useSelector(getAvailableCars)
+  const dispatch = useDispatch()
+
+  const handleAddCarToPark = () => {
+    dispatch(
+      addCarToParkThunk(
+        {
+          name: autoName,
+          id: governmentNumber,
+        },
+        setModalState,
+        setAutoName,
+        setGovernmentNumber,
+      ),
+    )
+  }
+
+  const handleOpenModal = () => {
+    dispatch(getAvailableCarsThunk(setModalState))
+  }
+
   return (
     <div className={styles.wrapper}>
       {autopark.map((car) => (
-        <Card
-          name={car.name}
-          image={
-            (car.class === 'Eco' && ecoCar) ||
-            (car.class === 'Business' && businessCar) ||
-            (car.class === 'Premium' && premiumCar)
-          }
-        />
+        <Card name={car.name} image={car.icon} id={car.id} key={car.id} />
       ))}
-      <AddNewCard handleClick={() => setModalState(true)} />
+      <AddNewCard handleClick={handleOpenModal} />
       <CustomModal
         title='Add car to park'
         isOpen={modalState}
         handleClose={() => setModalState(false)}
         buttonTitle='Add car'
+        submitModal={handleAddCarToPark}
       >
         <div className={styles.form}>
           <TextField
             id='outlined'
-            label='Enter name station'
-            value={nameStation}
-            onChange={(e) => setNameStation(e.target.value)}
+            label='Enter government number'
+            value={governmentNumber}
+            onChange={(e) => setGovernmentNumber(e.target.value)}
             sx={{ marginBottom: 2, marginTop: 2 }}
           />
-          <Select items={autos} label='pick car' />
+          <Select
+            items={availableCars || []}
+            label='pick car'
+            value={autoName}
+            handleChange={(e) => setAutoName(e.target.value)}
+          />
         </div>
       </CustomModal>
     </div>

@@ -91,6 +91,7 @@
         }
       }
     ],
+    "no-throw-literal": "off",
     "no-param-reassign": "off",
     "import/no-unresolved": "off",
     "react/prop-types":"off",

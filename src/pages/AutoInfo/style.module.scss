@@ -1,0 +1,54 @@
+.infoOfCarContainer {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 100%;
+  .infoOfCar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .icon {
+      width: 200px;
+      height: 200px;
+    }
+    .nameOfCar {
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .nameOfCar {
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .governmentNumber {
+      margin-top: 10px;
+      color:grey;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.contentHistory {
+  width: 200px;
+  height: fit-content;
+}
+.modalContent {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.modalContent::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+  background: #5d8aa8;
+  border-radius: 27px;
+}
+.modalContent::-webkit-scrollbar-track {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.statusSent {
+  color: orange;
+}

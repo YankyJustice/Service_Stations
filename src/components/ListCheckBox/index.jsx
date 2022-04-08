@@ -24,6 +24,7 @@ const ListCheckBox = ({ lists, title, details, handleChange }) => {
         aria-haspopup='true'
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        sx={{ background: '#1976d2', color: 'black', height: 20 }}
       >
         {title}
       </Button>
@@ -32,9 +33,6 @@ const ListCheckBox = ({ lists, title, details, handleChange }) => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
       >
         {lists.map((el) => (
           <MenuItem>

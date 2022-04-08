@@ -1,3 +1,6 @@
+import hyundai from 'src/assets/png/hyundai.png'
+import mercedes from 'src/assets/png/mercedes.png'
+
 export const details = [
   'battery',
   'accumulator',
@@ -7,10 +10,9 @@ export const details = [
 ]
 
 export const autos = [
-  'Huyndai',
-  'Mercedes',
-  'Mazda',
-  'Lada',
-  'BMW',
-  'Lamborgini',
+  { name: 'Hyundai', icon: hyundai },
+  { name: 'Mercedes', icon: mercedes },
 ]
+
+export const regExpGovernmentNumber =
+  /^[a-zA-Z]\d{3}(?<!000)[a-zA-Z]{2}\d{2,3}$/iu

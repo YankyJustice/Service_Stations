@@ -26,6 +26,7 @@ const CustomModal = ({
   handleClose,
   submitModal,
   buttonTitle,
+  btnModalDisabled,
 }) => (
   <div>
     <Modal
@@ -50,6 +51,7 @@ const CustomModal = ({
             variant='contained'
             color='success'
             sx={{ marginTop: 2 }}
+            disabled={btnModalDisabled}
           >
             {buttonTitle}
           </Button>

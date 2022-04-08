@@ -18,9 +18,12 @@ code {
   display: flex;
   flex-direction: row;
   margin-top: 40px;
+  max-height: 760px;
+  gap: 20px;
+  max-width: 100%;
 }
 .container {
-  font-family: Ubuntu;
+  font-family: Ubuntu, serif;
   font-weight: 600;
   margin: 0 auto;
   max-width: 1400px;

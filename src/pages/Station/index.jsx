@@ -2,17 +2,25 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import { TextField } from '@mui/material'
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  TextField,
+} from '@mui/material'
 import Button from '@mui/material/Button'
 
+import { getNormalizeDate } from 'src/constants/functions'
 import { details } from 'src/constants/mock'
 
 import { getCurrentStation } from 'src/redux/serviceStations/selectors'
 import {
+  acceptForRepairThunk,
   getCurrentStationThunk,
   orderDetailsThunk,
 } from 'src/redux/serviceStations/thunks'
 
+import InfoBlock from 'src/components/InfoBlock'
 import CustomModal from 'src/components/Modal'
 
 import repair from 'src/assets/png/repair.png'
@@ -47,6 +55,11 @@ const Station = () => {
       ),
     )
   }
+
+  const AcceptForRepair = (requestData) => {
+    dispatch(acceptForRepairThunk(requestData, currentStation))
+  }
+
   const handleOrderDetails = () => {
     dispatch(
       orderDetailsThunk(
@@ -65,12 +78,11 @@ const Station = () => {
           <img className={styles.logo} src={repair} alt='repair' />
           <div className={styles.nameStation}>{currentStation?.name}</div>
         </div>
-        <div className={styles.detailsInfo}>
-          <div className={styles.detailsInfoHeader}>Details</div>
+        <InfoBlock title='Details'>
           <div className={styles.detailsScroll}>
             {currentStation?.acceptableAutos.map((auto) => (
-              <>
-                <div className={styles.autoBlock}>
+              <div>
+                <div className={styles.autoBlock} key={auto.name}>
                   <span>{auto.name}</span>
                   <Button
                     onClick={() => openModal(auto.name)}
@@ -82,14 +94,14 @@ const Station = () => {
                 {auto.details
                   .filter((detail) => Number(detail.count) > 0)
                   .map((detail) => (
-                    <div className={styles.detailInfo}>
+                    <div className={styles.detailInfo} key={detail.name}>
                       <span className={styles.detailName}>{detail.name}:</span>
                       <span className={styles.detailCount}>
                         {detail.count} pc
                       </span>
                     </div>
                   ))}
-              </>
+              </div>
             ))}
             <CustomModal
               title='Order details'
@@ -98,7 +110,7 @@ const Station = () => {
               submitModal={handleOrderDetails}
               buttonTitle='Order'
             >
-              <div className={styles.modalContent}>
+              <div className={styles.modalContentService}>
                 {detailsForOrder.map((detail) => (
                   <TextField
                     id='filled-number'
@@ -110,18 +122,123 @@ const Station = () => {
                     value={detail.count}
                     onChange={(e) => orderDetails(detail.name, e)}
                     sx={{ marginBottom: 2 }}
-                    variant='filled'
                   />
                 ))}
               </div>
             </CustomModal>
             <div />
           </div>
-        </div>
+        </InfoBlock>
       </div>
       <div className={styles.autosInfoContainer}>
-        <div className={styles.autosWaiting}>qwe</div>
-        <div className={styles.autoOnStantion}>qwe</div>
+        <InfoBlock title='Repair requests'>
+          {currentStation?.repairRequests?.map((request) => (
+            <Accordion>
+              <AccordionSummary
+                aria-controls='panel1a-content'
+                id='panel1a-header'
+              >
+                <div className={styles.prevInfoCarBlock}>
+                  <img
+                    className={styles.iconCar}
+                    src={request.carIcon}
+                    alt={request.carName}
+                  />
+                  <span>{request.carName}</span>
+                </div>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className={styles.requestInfo}>
+                  <span className={styles.accordionInfoTitle}>
+                    Government number:
+                  </span>
+                  <span className={styles.accordionInfoText}>
+                    {' '}
+                    {request.carId}
+                  </span>
+                </div>
+                <div className={styles.requestInfo}>
+                  <span className={styles.accordionInfoTitle}>
+                    Replacement details:
+                  </span>
+                  <span className={styles.accordionInfoText}>
+                    {' '}
+                    {request.detailsForRepair.map(
+                      (detail, index, arr) =>
+                        `${detail}${index + 1 < arr.length ? ', ' : ''}`,
+                    )}
+                  </span>
+                </div>
+                <div className={styles.accordionFooter}>
+                  <span className={styles.date}>
+                    {getNormalizeDate(request.requestDate)}
+                  </span>
+                  <Button
+                    onClick={() => AcceptForRepair(request)}
+                    variant='contained'
+                    color='success'
+                  >
+                    Accept
+                  </Button>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </InfoBlock>
+        <InfoBlock title='Repair requests'>
+          {currentStation?.repairHistory?.map((request) => (
+            <Accordion>
+              <AccordionSummary
+                aria-controls='panel1a-content'
+                id='panel1a-header'
+              >
+                <div className={styles.prevInfoCarBlock}>
+                  <img
+                    className={styles.iconCar}
+                    src={request.carIcon}
+                    alt={request.carName}
+                  />
+                  <span>{request.carName}</span>
+                </div>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className={styles.requestInfo}>
+                  <span className={styles.accordionInfoTitle}>
+                    Government number:
+                  </span>
+                  <span className={styles.accordionInfoText}>
+                    {' '}
+                    {request.carId}
+                  </span>
+                </div>
+                <div className={styles.requestInfo}>
+                  <span className={styles.accordionInfoTitle}>
+                    Replacement details:
+                  </span>
+                  <span className={styles.accordionInfoText}>
+                    {' '}
+                    {request.detailsForRepair.map(
+                      (detail, index, arr) =>
+                        `${detail}${index + 1 < arr.length ? ', ' : ''}`,
+                    )}
+                  </span>
+                </div>
+                <div className={styles.accordionFooter}>
+                  <span className={styles.date}>
+                    {getNormalizeDate(request.requestDate)}
+                  </span>
+                  <Button
+                    onClick={() => AcceptForRepair(request)}
+                    variant='contained'
+                    color='error'
+                  >
+                    Complete service
+                  </Button>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </InfoBlock>
       </div>
     </div>
   )

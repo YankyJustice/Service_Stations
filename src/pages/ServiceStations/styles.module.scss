@@ -15,10 +15,11 @@
   padding-bottom: 10px;
   .checkBox {
     transition: 0.3s;
-    width: 220px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    max-width: fit-content;
   }
 }
 
