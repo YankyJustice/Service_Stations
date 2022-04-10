@@ -29,3 +29,8 @@ code {
   padding-right: 15px;
   max-width: 1400px;
 }
+
+.active {
+  color:white!important;
+
+}

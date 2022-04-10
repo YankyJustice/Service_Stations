@@ -62,6 +62,7 @@ const ServiceStations = () => {
 
   return (
     <div className={styles.wrapper}>
+      <AddNewCard handleClick={() => setModalState(true)} />
       {stations.map((station) => (
         <Card
           name={station.name}
@@ -70,7 +71,7 @@ const ServiceStations = () => {
           id={station.id}
         />
       ))}
-      <AddNewCard handleClick={() => setModalState(true)} />
+
       <CustomModal
         title='Add service station'
         isOpen={modalState}
@@ -100,19 +101,19 @@ const ServiceStations = () => {
                     )}
                     n
                   />
-                  <span>{auto.name}</span>
+                  <span className={styles.carName}>{auto.name}</span>
+                  {acceptableAutos.map(
+                    (acceptableAuto) =>
+                      acceptableAuto.name === auto.name && (
+                        <ListCheckBox
+                          lists={details}
+                          title='Details'
+                          handleChange={handleAddDetail(acceptableAuto.name)}
+                          details={acceptableAuto.details}
+                        />
+                      ),
+                  )}
                 </div>
-                {acceptableAutos.map(
-                  (acceptableAuto) =>
-                    acceptableAuto.name === auto.name && (
-                      <ListCheckBox
-                        lists={details}
-                        title='Details'
-                        handleChange={handleAddDetail(acceptableAuto.name)}
-                        details={acceptableAuto.details}
-                      />
-                    ),
-                )}
               </div>
             ))}
           </div>

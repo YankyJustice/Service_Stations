@@ -1,38 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  stations: [
-    {
-      name: 'tiny airlanes1',
-      id: 'qwDSADewq',
-      acceptableAutos: [
-        {
-          name: 'Hyundai',
-          details: [{ name: 'battery', count: 20 }],
-        },
-      ],
-      repairRequests: [],
-      repairHistory: [],
-    },
-    {
-      name: 'tiny airlanes2',
-      id: 'qwDSA2Dewq',
-      acceptableAutos: [
-        { name: 'Hyundai', details: [{ name: 'battery', count: 20 }] },
-      ],
-      repairRequests: [],
-      repairHistory: [],
-    },
-    {
-      name: 'tiny airlanes3',
-      id: 'qwDSA3Dewq',
-      acceptableAutos: [
-        { name: 'Hyundai', details: [{ name: 'battery', count: 20 }] },
-      ],
-      repairRequests: [],
-      repairHistory: [],
-    },
-  ],
+  stations: [],
   currentStation: null,
 }
 

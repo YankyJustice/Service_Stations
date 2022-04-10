@@ -29,6 +29,7 @@
   align-items: center;
   border-bottom: 1px solid black;
   padding-bottom: 10px;
+  overflow-x: hidden;
   .checkBox {
     transition: 0.3s;
     display: flex;
@@ -39,11 +40,29 @@
   }
 }
 
+.form::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+.form::-webkit-scrollbar-thumb {
+  background: #5d8aa8;
+  border-radius: 27px;
+}
+.form::-webkit-scrollbar-track {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
 .form {
   overflow: auto;
   max-height: 400px;
   width: 100%;
+  padding-top: 20px;
   justify-content: center;
   display: flex;
   flex-direction: column;
+}
+
+.carName {
+  margin-right: 10px;
 }
