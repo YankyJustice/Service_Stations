@@ -28,8 +28,7 @@ export const addCarToParkThunk =
         throw String('Car with this government number already exist')
       }
       const { icon } = autos.find((auto) => auto.name === payload.name)
-      dispatch(addCarToPark({ ...payload, icon }))
-      console.log(icon)
+      dispatch(addCarToPark({ ...payload, icon, repairHistory: [] }))
       setModalState(false)
       setAutoName('')
       setGovernmentNumber('')

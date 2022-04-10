@@ -2,10 +2,9 @@ import { Link } from 'react-router-dom'
 
 import styles from './styles.module.scss'
 
-const LeftSideBar = () => {
-  const qwe = ''
-  return (
-    <div className={styles.leftSideBarWrapper}>
+const LeftSideBar = () => (
+  <div className={styles.leftSideBarWrapper}>
+    <div className={styles.leftSideBarWrapperFixed}>
       <div className={styles.links}>
         <Link to='autopark' className={styles.link}>
           Park of cars
@@ -15,7 +14,7 @@ const LeftSideBar = () => {
         </Link>
       </div>
     </div>
-  )
-}
+  </div>
+)
 
 export default LeftSideBar

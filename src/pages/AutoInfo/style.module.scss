@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 50% 50%;
   width: 100%;
+  height: 100%;
   .infoOfCar {
     display: flex;
     flex-direction: column;
@@ -51,4 +52,50 @@
 }
 .statusSent {
   color: orange;
+}
+
+.requestInfo {
+  padding: 10px 10px 10px 0;
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+}
+.accordionInfoText {
+  font-size: 13px;
+  color:grey;
+}
+.accordionInfoTitle {
+  font-size: 16px;
+  color:black;
+  font-weight: bold;
+}
+.accordionFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  height: fit-content;
+}
+.prevInfoCarBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .iconCar {
+    margin-right: 5px;
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.modalContentService {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+}
+
+.date {
+  padding-top: 20px;
+  color: grey;
+  font-size: 14px;
 }

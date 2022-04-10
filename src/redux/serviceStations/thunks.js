@@ -2,8 +2,9 @@ import { toast } from 'react-toastify'
 
 import _ from 'lodash'
 
-import { changeDetailsCount } from 'src/constants/functions'
+import { changeDetailsCount, getRandomString } from 'src/constants/functions'
 
+import { setCars } from 'src/redux/ParkOfCars/reducer'
 import {
   addStation,
   setCurrentStation,
@@ -75,7 +76,14 @@ export const acceptForRepairThunk =
               repairRequests: station.repairRequests.filter(
                 (request) => request.carName !== requestData.carName,
               ),
-              repairHistory: [...station.repairHistory, requestData],
+              repairHistory: [
+                ...station.repairHistory,
+                {
+                  ...requestData,
+                  id: getRandomString(),
+                  acceptDate: Date.now(),
+                },
+              ],
               acceptableAutos: station.acceptableAutos.map((auto) => {
                 if (auto.name === requestData.carName) {
                   return {
@@ -91,6 +99,50 @@ export const acceptForRepairThunk =
             }
           }
           return station
+        }),
+      ),
+    )
+    dispatch(getCurrentStationThunk(currentStation.id))
+  }
+
+export const completeServiceThunk =
+  (currentRepair, currentStation) => async (dispatch, getState) => {
+    const {
+      serviceStations: { stations },
+      parkOfCars: { cars },
+    } = getState()
+
+    console.log(currentRepair)
+    dispatch(
+      setStations(
+        stations.map((station) => ({
+          ...station,
+          repairHistory: station.repairHistory.map((repair) => {
+            if (repair.id === currentRepair.id) {
+              return {
+                ...repair,
+                endDate: Date.now(),
+              }
+            }
+            return repair
+          }),
+        })),
+      ),
+    )
+    dispatch(
+      setCars(
+        cars.map((car) => {
+          if (car.id === currentRepair.carId) {
+            return {
+              ...car,
+              repairHistory: [
+                ...car.repairHistory,
+                { ...currentRepair, endDate: Date.now() },
+              ],
+              status: 'complete',
+            }
+          }
+          return car
         }),
       ),
     )

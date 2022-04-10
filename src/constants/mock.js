@@ -7,6 +7,11 @@ export const details = [
   'bonnet',
   'boot',
   'carburettor',
+  'absorber',
+  'accelerator',
+  'body',
+  'brake',
+  'bulbs',
 ]
 
 export const autos = [

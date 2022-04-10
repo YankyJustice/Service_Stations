@@ -3,7 +3,23 @@
   flex-direction: row;
   flex-wrap: wrap;
   padding: 0 25px 25px 25px;
-  height: 100%;
+  height: fit-content;
+  max-height: 800px;
+  overflow: auto;
+}
+
+.wrapper::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  background: #5d8aa8;
+  border-radius: 27px;
+}
+.wrapper::-webkit-scrollbar-track {
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 .checkBoxWrapper {
   display: grid;
@@ -26,4 +42,8 @@
 .form {
   overflow: auto;
   max-height: 400px;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 }

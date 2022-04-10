@@ -98,6 +98,7 @@ const ServiceStations = () => {
                         (acceptableAuto) => acceptableAuto.name === auto.name,
                       ),
                     )}
+                    n
                   />
                   <span>{auto.name}</span>
                 </div>

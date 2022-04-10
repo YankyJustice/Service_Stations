@@ -1,9 +1,12 @@
 .leftSideBarWrapper {
   box-shadow: grey 0 5px 5px;
-  height: 700px;
   background: rgb(93, 138, 168);
   padding: 30px;
   min-width: 139px;
+  height: 100%;
+  .leftSideBarWrapperFixed {
+    position: fixed;
+  }
   .links {
     display: flex;
     flex-direction: column;

@@ -14,7 +14,7 @@ import Card from 'src/components/Card'
 import CustomModal from 'src/components/Modal'
 import Select from 'src/components/Select'
 
-import styles from 'src/pages/ServiceStations/styles.module.scss'
+import styles from './styles.module.scss'
 
 const ParkOfCars = () => {
   const [modalState, setModalState] = useState(false)

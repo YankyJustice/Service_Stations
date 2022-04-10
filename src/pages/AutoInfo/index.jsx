@@ -2,9 +2,15 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import { Checkbox } from '@mui/material'
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Checkbox,
+} from '@mui/material'
 import Button from '@mui/material/Button'
 
+import { getNormalizeDate } from 'src/constants/functions'
 import { details } from 'src/constants/mock'
 
 import { getCurrentCar } from 'src/redux/ParkOfCars/selectors'
@@ -84,8 +90,62 @@ const AutoInfo = () => {
           </Button>
         )}
       </div>
-      <InfoBlock title='History maintenance'>
-        <div className={styles.contentHistory} />
+      <InfoBlock title='Repair history'>
+        {currentCar?.repairHistory?.map((repair) => (
+          <Accordion>
+            <AccordionSummary
+              aria-controls='panel1a-content'
+              id='panel1a-header'
+            >
+              <div className={styles.prevInfoCarBlock}>
+                <img
+                  className={styles.iconCar}
+                  src={repair.carIcon}
+                  alt={repair.carName}
+                />
+                <span>{repair.carName}</span>
+              </div>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div className={styles.requestInfo}>
+                <span className={styles.accordionInfoTitle}>
+                  Government number:
+                </span>
+                <span className={styles.accordionInfoText}>
+                  {' '}
+                  {repair.carId}
+                </span>
+              </div>
+              <div className={styles.requestInfo}>
+                <span className={styles.accordionInfoTitle}>
+                  Replacement details:
+                </span>
+                <span className={styles.accordionInfoText}>
+                  {' '}
+                  {repair.detailsForRepair.map(
+                    (detail, index, arr) =>
+                      `${detail}${index + 1 < arr.length ? ', ' : ''}`,
+                  )}
+                </span>
+              </div>
+              <div className={styles.requestInfo}>
+                <span className={styles.accordionInfoTitle}>Request date:</span>
+                <span className={styles.accordionInfoText}>
+                  {' '}
+                  {getNormalizeDate(repair.requestDate)}
+                </span>
+              </div>
+              <div className={styles.accordionFooter}>
+                <span className={styles.date}>
+                  {getNormalizeDate(repair.acceptDate)}
+                </span>
+                <span className={styles.date}>
+                  {getNormalizeDate(repair.endDate)}
+                </span>
+              </div>
+            </AccordionDetails>
+          </Accordion>
+        ))}
       </InfoBlock>
       <CustomModal
         title='Select details to be replaced'
@@ -93,7 +153,11 @@ const AutoInfo = () => {
         handleClose={() => setModalState(false)}
         submitModal={handleModal}
         buttonTitle='Send'
-        btnModalDisabled={detailsForRepair.length === 0 || !station}
+        btnModalDisabled={
+          detailsForRepair.length === 0 ||
+          !station ||
+          currentCar?.availableStations?.length === 0
+        }
       >
         <div className={styles.modalContent}>
           {details.map((detail) => (

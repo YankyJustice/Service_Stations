@@ -16,6 +16,7 @@ import { details } from 'src/constants/mock'
 import { getCurrentStation } from 'src/redux/serviceStations/selectors'
 import {
   acceptForRepairThunk,
+  completeServiceThunk,
   getCurrentStationThunk,
   orderDetailsThunk,
 } from 'src/redux/serviceStations/thunks'
@@ -23,7 +24,7 @@ import {
 import InfoBlock from 'src/components/InfoBlock'
 import CustomModal from 'src/components/Modal'
 
-import repair from 'src/assets/png/repair.png'
+import repairImg from 'src/assets/png/repair.png'
 
 import styles from './style.module.scss'
 
@@ -47,16 +48,17 @@ const Station = () => {
   }
 
   const orderDetails = (detailForOrder, e) => {
-    setDetailsForOrder((prev) =>
-      prev.map((detail) =>
-        detail.name === detailForOrder
-          ? { name: detailForOrder, count: e.target.value }
-          : detail,
-      ),
-    )
+    e.target.value >= 0 &&
+      setDetailsForOrder((prev) =>
+        prev.map((detail) =>
+          detail.name === detailForOrder
+            ? { name: detailForOrder, count: e.target.value }
+            : detail,
+        ),
+      )
   }
 
-  const AcceptForRepair = (requestData) => {
+  const acceptForRepair = (requestData) => {
     dispatch(acceptForRepairThunk(requestData, currentStation))
   }
 
@@ -71,11 +73,15 @@ const Station = () => {
     )
   }
 
+  const completeService = (repair) => {
+    dispatch(completeServiceThunk(repair, currentStation))
+  }
+
   return (
     <div className={styles.stationContainer}>
       <div className={styles.stationInfoContainer}>
         <div className={styles.stationInfo}>
-          <img className={styles.logo} src={repair} alt='repair' />
+          <img className={styles.logo} src={repairImg} alt='repair' />
           <div className={styles.nameStation}>{currentStation?.name}</div>
         </div>
         <InfoBlock title='Details'>
@@ -86,7 +92,8 @@ const Station = () => {
                   <span>{auto.name}</span>
                   <Button
                     onClick={() => openModal(auto.name)}
-                    sx={{ height: 30, bgcolor: 'green', color: 'black' }}
+                    variant='contained'
+                    disableElevation
                   >
                     Order details
                   </Button>
@@ -174,7 +181,7 @@ const Station = () => {
                     {getNormalizeDate(request.requestDate)}
                   </span>
                   <Button
-                    onClick={() => AcceptForRepair(request)}
+                    onClick={() => acceptForRepair(request)}
                     variant='contained'
                     color='success'
                   >
@@ -185,8 +192,8 @@ const Station = () => {
             </Accordion>
           ))}
         </InfoBlock>
-        <InfoBlock title='Repair requests'>
-          {currentStation?.repairHistory?.map((request) => (
+        <InfoBlock title='Repair history'>
+          {currentStation?.repairHistory?.map((repair) => (
             <Accordion>
               <AccordionSummary
                 aria-controls='panel1a-content'
@@ -195,10 +202,10 @@ const Station = () => {
                 <div className={styles.prevInfoCarBlock}>
                   <img
                     className={styles.iconCar}
-                    src={request.carIcon}
-                    alt={request.carName}
+                    src={repair.carIcon}
+                    alt={repair.carName}
                   />
-                  <span>{request.carName}</span>
+                  <span>{repair.carName}</span>
                 </div>
               </AccordionSummary>
               <AccordionDetails>
@@ -208,7 +215,7 @@ const Station = () => {
                   </span>
                   <span className={styles.accordionInfoText}>
                     {' '}
-                    {request.carId}
+                    {repair.carId}
                   </span>
                 </div>
                 <div className={styles.requestInfo}>
@@ -217,23 +224,38 @@ const Station = () => {
                   </span>
                   <span className={styles.accordionInfoText}>
                     {' '}
-                    {request.detailsForRepair.map(
+                    {repair.detailsForRepair.map(
                       (detail, index, arr) =>
                         `${detail}${index + 1 < arr.length ? ', ' : ''}`,
                     )}
                   </span>
                 </div>
+                <div className={styles.requestInfo}>
+                  <span className={styles.accordionInfoTitle}>
+                    Request date:
+                  </span>
+                  <span className={styles.accordionInfoText}>
+                    {' '}
+                    {getNormalizeDate(repair.requestDate)}
+                  </span>
+                </div>
                 <div className={styles.accordionFooter}>
                   <span className={styles.date}>
-                    {getNormalizeDate(request.requestDate)}
+                    {getNormalizeDate(repair.acceptDate)}
                   </span>
-                  <Button
-                    onClick={() => AcceptForRepair(request)}
-                    variant='contained'
-                    color='error'
-                  >
-                    Complete service
-                  </Button>
+                  {repair.endDate ? (
+                    <span className={styles.date}>
+                      {getNormalizeDate(repair.endDate)}
+                    </span>
+                  ) : (
+                    <Button
+                      onClick={() => completeService(repair)}
+                      variant='contained'
+                      color='error'
+                    >
+                      Complete service
+                    </Button>
+                  )}
                 </div>
               </AccordionDetails>
             </Accordion>
