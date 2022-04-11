@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 
@@ -8,19 +9,27 @@ import LeftSideBar from 'src/components/LeftSideBar'
 
 import 'react-toastify/dist/ReactToastify.css'
 
-const App = () => (
-  <div className='container'>
-    <ToastContainer theme='light' pauseOnHover={false} position='top-right' />
-    <Header />
-    <div className='layout'>
-      <LeftSideBar />
-      <Routes>
-        {PublicRoutes.map((route) => (
-          <Route path={route.path} element={route.component} key={route.path} />
-        ))}
-      </Routes>
+const App = () => {
+  const [stateSidebar, setStateSidebar] = useState(false)
+
+  return (
+    <div className='container'>
+      <ToastContainer theme='light' pauseOnHover={false} position='top-right' />
+      <Header setStateSidebar={setStateSidebar} />
+      <div className='layout'>
+        <LeftSideBar stateSidebar={stateSidebar} />
+        <Routes>
+          {PublicRoutes.map((route) => (
+            <Route
+              path={route.path}
+              element={route.component}
+              key={route.path}
+            />
+          ))}
+        </Routes>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default App

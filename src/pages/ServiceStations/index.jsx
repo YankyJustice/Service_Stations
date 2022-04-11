@@ -69,7 +69,13 @@ const ServiceStations = () => {
           image={repair}
           key={station.id}
           id={station.id}
-        />
+        >
+          {station.repairRequests?.length > 0 && (
+            <div className={styles.circle}>
+              {station.repairRequests?.length}
+            </div>
+          )}
+        </Card>
       ))}
 
       <CustomModal

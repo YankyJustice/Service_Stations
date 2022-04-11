@@ -17,7 +17,6 @@ code {
 .layout {
   display: flex;
   flex-direction: row;
-  margin-top: 40px;
   height: 760px;
   max-width: 100%;
 }
@@ -25,12 +24,9 @@ code {
   font-family: Ubuntu, serif;
   font-weight: 600;
   margin: 0 auto;
-  padding-left: 15px;
-  padding-right: 15px;
   max-width: 1400px;
 }
 
 .active {
   color:white!important;
-
 }

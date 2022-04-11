@@ -91,6 +91,7 @@
         }
       }
     ],
+    "no-use-before-define": "off",
     "no-throw-literal": "off",
     "no-param-reassign": "off",
     "import/no-unresolved": "off",

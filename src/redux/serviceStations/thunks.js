@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import _ from 'lodash'
 
 import { changeDetailsCount, getRandomString } from 'src/constants/functions'
+import { details as mockDetails } from 'src/constants/mock'
 
 import { setCars } from 'src/redux/ParkOfCars/reducer'
 import {
@@ -112,7 +113,6 @@ export const completeServiceThunk =
       parkOfCars: { cars },
     } = getState()
 
-    console.log(currentRepair)
     dispatch(
       setStations(
         stations.map((station) => ({
@@ -184,4 +184,8 @@ export const orderDetailsThunk =
     )
     dispatch(getCurrentStationThunk(currentStation.id))
     setModalState(false)
+    setDetailsForOrder(
+      mockDetails.map((detail) => ({ name: detail, count: 0 })),
+    )
+    toast.success('Details ordered successfully')
   }

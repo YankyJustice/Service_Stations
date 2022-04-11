@@ -92,7 +92,7 @@ const AutoInfo = () => {
       </div>
       <InfoBlock title='Repair history'>
         {currentCar?.repairHistory?.map((repair) => (
-          <Accordion>
+          <Accordion key={repair.id}>
             <AccordionSummary
               aria-controls='panel1a-content'
               id='panel1a-header'

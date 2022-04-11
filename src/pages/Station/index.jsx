@@ -87,7 +87,7 @@ const Station = () => {
         <InfoBlock title='Details'>
           <div className={styles.detailsScroll}>
             {currentStation?.acceptableAutos.map((auto) => (
-              <div>
+              <div key={auto.name}>
                 <div className={styles.autoBlock} key={auto.name}>
                   <span>{auto.name}</span>
                   <Button
@@ -120,6 +120,7 @@ const Station = () => {
               <div className={styles.modalContentService}>
                 {detailsForOrder.map((detail) => (
                   <TextField
+                    key={detail.name}
                     id='filled-number'
                     label={detail.name}
                     type='number'
@@ -140,7 +141,7 @@ const Station = () => {
       <div className={styles.autosInfoContainer}>
         <InfoBlock title='Repair requests'>
           {currentStation?.repairRequests?.map((request) => (
-            <Accordion>
+            <Accordion key={request.carId}>
               <AccordionSummary
                 aria-controls='panel1a-content'
                 id='panel1a-header'
@@ -194,7 +195,7 @@ const Station = () => {
         </InfoBlock>
         <InfoBlock title='Repair history'>
           {currentStation?.repairHistory?.map((repair) => (
-            <Accordion>
+            <Accordion key={repair.id}>
               <AccordionSummary
                 aria-controls='panel1a-content'
                 id='panel1a-header'

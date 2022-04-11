@@ -2,9 +2,13 @@ import { NavLink } from 'react-router-dom'
 
 import styles from './styles.module.scss'
 
-const LeftSideBar = () => (
-  <div className={styles.leftSideBarWrapper}>
-    <div className={styles.leftSideBarWrapperFixed}>
+const LeftSideBar = ({ stateSidebar }) => (
+  <div className={styles.leftSideBarWrapperFixed}>
+    <div
+      className={`${styles.leftSideBarWrapper} ${
+        stateSidebar && styles.openedSidebar
+      }`}
+    >
       <div className={styles.links}>
         <NavLink to='autopark' className={styles.link}>
           Park of cars
