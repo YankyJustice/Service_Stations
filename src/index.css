@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -13,6 +15,18 @@ code {
 }
 
 .layout {
-  display: grid;
-  grid-template-columns: 20% 80%;
+  display: flex;
+  flex-direction: row;
+  height: 760px;
+  max-width: 100%;
+}
+.container {
+  font-family: Ubuntu, serif;
+  font-weight: 600;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+.active {
+  color:white!important;
 }

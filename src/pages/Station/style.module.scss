@@ -1,0 +1,148 @@
+.stationContainer {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  gap: 10px;
+  width: 100%;
+  padding: 20px 10px 0 10px;
+  .requestInfo {
+    padding: 10px 10px 10px 0;
+    border-bottom: 1px solid black;
+    margin-bottom: 5px;
+  }
+  .accordionInfoText {
+    font-size: 13px;
+    color:grey;
+  }
+  .accordionInfoTitle {
+    font-size: 16px;
+    color:black;
+    font-weight: bold;
+  }
+  .accordionFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    height: fit-content;
+  }
+  .prevInfoCarBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .iconCar {
+      margin-right: 5px;
+      width: 25px;
+      height: 25px;
+    }
+  }
+  .stationInfoContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:10px;
+    @media only screen and (max-width:800px)  {
+      display: flex;
+      flex-direction: column;
+    }
+    .stationInfo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .logo {
+        width: 100px;
+        height: 100px;
+      }
+      .nameStation {
+        font-size: 25px;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+    }
+      .detailsScroll {
+        height: fit-content;
+        padding: 20px;
+      }
+      .detailsInfoHeader {
+        padding-top: 20px;
+        background: white;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        position: sticky;
+        z-index: 3;
+        top: 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid grey;
+      }
+      .autoBlock {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        padding-bottom: 5px;
+        border-bottom: 1px solid black;
+      }
+      .detailInfo {
+        margin-top: 10px;
+        margin-left: 30px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .detailName {
+          margin-right: 10px;
+          font-size: 18px;
+          font-weight: bold;
+        }
+        .detailCount {
+          font-size: 14px;
+        }
+      }
+  }
+
+  .autosInfoContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:10px;
+    .autosWaiting {
+      border: 2px solid grey;
+      border-radius: 20px;
+    }
+    .autoOnStantion {
+      border: 2px solid grey;
+      border-radius: 20px;
+    }
+  }
+}
+
+.modalContentService {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.modalContentService::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+.modalContentService::-webkit-scrollbar-thumb {
+  background: #5d8aa8;
+  border-radius: 27px;
+}
+.modalContentService::-webkit-scrollbar-track {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.date {
+  padding-top: 20px;
+  color: grey;
+  font-size: 14px;
+}

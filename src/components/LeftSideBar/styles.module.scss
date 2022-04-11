@@ -1,0 +1,33 @@
+.leftSideBarWrapper {
+  box-shadow: grey 0 5px 5px;
+  background: rgb(93, 138, 168);
+  padding: 30px;
+  min-width: 139px;
+  height: calc(100vh - 150px);
+  transition: 0.5s;
+  @media only screen and (max-width:800px)  {
+    position: absolute;
+    z-index: 43;
+    left: -100%;
+  }
+  .leftSideBarWrapperFixed {
+    position: fixed;
+  }
+  .links {
+    display: flex;
+    flex-direction: column;
+    .link {
+      text-decoration: none;
+      color: black;
+      font-size: 20px;
+    }
+
+    .link:not(:first-child) {
+      margin-top: 30px;
+    }
+  }
+}
+
+.openedSidebar {
+  left: 0!important;
+}

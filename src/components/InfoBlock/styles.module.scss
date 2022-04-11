@@ -1,0 +1,35 @@
+.container {
+  border-radius: 10px;
+  border: 2px solid grey;
+  overflow-y: auto;
+  width: 100%;
+  overflow-x:hidden;
+  .header {
+    z-index: 3;
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 50px;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+    position: sticky;
+    top:0;
+    border-bottom: 2px solid grey;
+  }
+}
+
+.container::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: #5d8aa8;
+  border-radius: 27px;
+}
+.container::-webkit-scrollbar-track {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}

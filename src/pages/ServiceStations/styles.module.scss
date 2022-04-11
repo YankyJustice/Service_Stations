@@ -1,0 +1,82 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: fit-content;
+  max-height: 760px;
+  overflow: auto;
+  width: 100%;
+}
+.circle {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background: green;
+  box-shadow: 5px 5px 5px grey;
+  top: -5px;
+  right: -5px;
+  color:white;
+  display: grid;
+  place-content: center;
+  font-size: 25px;
+}
+
+.wrapper::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  background: #5d8aa8;
+  border-radius: 27px;
+}
+.wrapper::-webkit-scrollbar-track {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.checkBoxWrapper {
+  display: grid;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  align-items: center;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  overflow-x: hidden;
+  .checkBox {
+    transition: 0.3s;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: fit-content;
+  }
+}
+
+.form::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+.form::-webkit-scrollbar-thumb {
+  background: #5d8aa8;
+  border-radius: 27px;
+}
+.form::-webkit-scrollbar-track {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.form {
+  overflow: auto;
+  max-height: 400px;
+  width: 100%;
+  padding-top: 20px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.carName {
+  margin-right: 10px;
+}

@@ -1,0 +1,30 @@
+.headerWrapper {
+  height: 60px;
+  background: rgb(93, 138, 168);
+  box-shadow: grey 0 5px 5px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+
+  .startIcons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    .headerTitleImg {
+      width:70px;
+      height: 70px;
+    }
+    .burgerimg {
+      width:70px;
+      height: 70px;
+      display: none;
+      @media only screen and (max-width:800px)  {
+        display: block;
+      }
+    }
+  }
+
+}
